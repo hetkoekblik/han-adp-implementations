@@ -1,6 +1,6 @@
 namespace han_adp_implementations.DataStructures;
 
-public interface IDataStructure
+public interface IDataStructure<T>
 {
-    
+    public int Count();
 }

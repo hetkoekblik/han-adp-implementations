@@ -1,8 +1,7 @@
-namespace han_adp_implementations.DataStructures;
+namespace han_adp_implementations.DataStructures.Lists;
 
-public interface IList<T>
+public interface IList<T> : IDataStructure<T>
 {
-    public int Count();
     public void Add(T item);
     public T Get(int index);
     public void Set(int index, T item);
