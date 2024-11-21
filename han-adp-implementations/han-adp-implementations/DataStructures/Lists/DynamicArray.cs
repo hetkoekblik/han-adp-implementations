@@ -11,6 +11,28 @@ public class DynamicArray<T> : IList<T>
         return _count;
     }
 
+    public T this[int index]
+    {
+        get {
+            if (index < 0 || index >= _count)
+            {
+                throw new IndexOutOfRangeException();
+            }
+        
+            return _array[index];
+        }
+
+        set
+        {
+            if (index < 0 || index >= _count)
+            {
+                throw new IndexOutOfRangeException();
+            }
+        
+            _array[index] = value;
+        }
+    }
+
     public void Add(T item)
     {
         if (_count == _array.Length)
@@ -27,26 +49,6 @@ public class DynamicArray<T> : IList<T>
         
         _array[_count] = item;
         _count++;
-    }
-
-    public T Get(int index)
-    {
-        if (index < 0 || index >= _count)
-        {
-            throw new IndexOutOfRangeException();
-        }
-        
-        return _array[index];
-    }
-
-    public void Set(int index, T item)
-    {
-        if (index < 0 || index >= _count)
-        {
-            throw new IndexOutOfRangeException();
-        }
-        
-        _array[index] = item;
     }
 
     public void Remove(int index)

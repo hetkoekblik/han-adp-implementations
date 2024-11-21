@@ -2,6 +2,8 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "han-adp-implementations", "han-adp-implementations\han-adp-implementations.csproj", "{4AF52820-02B4-49F5-8F21-0112B00563F3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "han-adp-implementations.Tests", "han-adp-implementations.Tests\han-adp-implementations.Tests.csproj", "{0AA4C245-E436-44DC-AA83-3B6AA6B49E2D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +14,9 @@ Global
 		{4AF52820-02B4-49F5-8F21-0112B00563F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4AF52820-02B4-49F5-8F21-0112B00563F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4AF52820-02B4-49F5-8F21-0112B00563F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AA4C245-E436-44DC-AA83-3B6AA6B49E2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AA4C245-E436-44DC-AA83-3B6AA6B49E2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AA4C245-E436-44DC-AA83-3B6AA6B49E2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AA4C245-E436-44DC-AA83-3B6AA6B49E2D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

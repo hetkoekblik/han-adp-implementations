@@ -20,6 +20,45 @@ public class DoublyLinkedList<T> : IList<T>
         return _count;
     }
 
+    public T this[int index]
+    {
+        get
+        {
+            if (index < 0 || index >= _count)
+            {
+                throw new IndexOutOfRangeException();
+            }
+        
+            var currentNode = _head;
+        
+            for (var i = 0; i < index; i++)
+            {
+                currentNode = currentNode?.Next;
+            }
+
+            if (currentNode != null) return currentNode.Value;
+        
+            throw new IndexOutOfRangeException();
+        }
+
+        set
+        {
+            if (index < 0 || index >= _count)
+            {
+                throw new IndexOutOfRangeException();
+            }
+        
+            var currentNode = _head;
+        
+            for (var i = 0; i < index; i++)
+            {
+                currentNode = currentNode?.Next;
+            }
+
+            if (currentNode != null) currentNode.Value = value;
+        }
+    }
+
     public void Add(T item)
     {
         var newNode = new Node(item, null, _tail);
@@ -34,42 +73,6 @@ public class DoublyLinkedList<T> : IList<T>
         _head ??= newNode;
         
         _count++;
-    }
-
-    public T Get(int index)
-    {
-        if (index < 0 || index >= _count)
-        {
-            throw new IndexOutOfRangeException();
-        }
-        
-        var currentNode = _head;
-        
-        for (var i = 0; i < index; i++)
-        {
-            currentNode = currentNode?.Next;
-        }
-
-        if (currentNode != null) return currentNode.Value;
-        
-        throw new IndexOutOfRangeException();
-    }
-
-    public void Set(int index, T item)
-    {
-        if (index < 0 || index >= _count)
-        {
-            throw new IndexOutOfRangeException();
-        }
-        
-        var currentNode = _head;
-        
-        for (var i = 0; i < index; i++)
-        {
-            currentNode = currentNode?.Next;
-        }
-
-        if (currentNode != null) currentNode.Value = item;
     }
 
     public void Remove(int index)
