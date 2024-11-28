@@ -1,3 +1,5 @@
+using System.Collections;
+
 namespace han_adp_implementations.DataStructures.Lists;
 
 public class DynamicArray<T> : IList<T>
@@ -75,6 +77,11 @@ public class DynamicArray<T> : IList<T>
             Remove(index);
         }
     }
+    
+    public void RemoveItem(T item)
+    {
+        Remove(item);
+    }
 
     public bool Contains(T item)
     {
@@ -92,5 +99,18 @@ public class DynamicArray<T> : IList<T>
         }
         
         return -1;
+    }
+
+    public IEnumerator<T> GetEnumerator()
+    {
+        for (var i = 0; i < _count; i++)
+        {
+            yield return _array[i];
+        }
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
     }
 }

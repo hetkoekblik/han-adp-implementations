@@ -4,7 +4,7 @@ using Xunit.Abstractions;
 
 namespace han_adp_implementations.Tests.Complexity;
 
-public class DynamicArray(ITestOutputHelper testOutputHelper)
+public class DoublyLinkedList(ITestOutputHelper testOutputHelper)
 {
     //check if the add method has a complexity of O(n)
     [Fact]
@@ -12,7 +12,7 @@ public class DynamicArray(ITestOutputHelper testOutputHelper)
     {
         var data = await DataRetriever.RetrieveSortingData();
         
-        var newArrayFull = new DataStructures.Lists.DynamicArray<int>();
+        var newArrayFull = new DataStructures.Lists.DoublyLinkedList<int>();
         
         var watch = Stopwatch.StartNew();
         
@@ -28,7 +28,7 @@ public class DynamicArray(ITestOutputHelper testOutputHelper)
         
         var elapsedMsFull = watch.ElapsedMilliseconds;
         
-        var newArray10 = new DataStructures.Lists.DynamicArray<int>();
+        var newArray10 = new DataStructures.Lists.DoublyLinkedList<int>();
         
         watch.Restart();
         
@@ -44,7 +44,7 @@ public class DynamicArray(ITestOutputHelper testOutputHelper)
         
         var elapsedMs100 = watch.ElapsedMilliseconds;
         
-        var newArray1000 = new DataStructures.Lists.DynamicArray<int>();
+        var newArray1000 = new DataStructures.Lists.DoublyLinkedList<int>();
         
         watch.Restart();
         
@@ -71,7 +71,7 @@ public class DynamicArray(ITestOutputHelper testOutputHelper)
     {
         var data = await DataRetriever.RetrieveSortingData();
         
-        var newArrayFull = new DataStructures.Lists.DynamicArray<int>();
+        var newArrayFull = new DataStructures.Lists.DoublyLinkedList<int>();
 
         foreach (var item in data.lijst_willekeurig_10000)
         {
@@ -92,7 +92,7 @@ public class DynamicArray(ITestOutputHelper testOutputHelper)
 
         var elapsedMsFull = watch.ElapsedMilliseconds;
 
-        var newArray100 = new DataStructures.Lists.DynamicArray<int>();
+        var newArray100 = new DataStructures.Lists.DoublyLinkedList<int>();
 
         foreach (var item in data.lijst_willekeurig_10000)
         {
@@ -113,7 +113,7 @@ public class DynamicArray(ITestOutputHelper testOutputHelper)
 
         var elapsedMs100 = watch.ElapsedMilliseconds;
 
-        var newArray1000 = new DataStructures.Lists.DynamicArray<int>();
+        var newArray1000 = new DataStructures.Lists.DoublyLinkedList<int>();
 
         foreach (var item in data.lijst_willekeurig_10000)
         {
@@ -145,7 +145,7 @@ public class DynamicArray(ITestOutputHelper testOutputHelper)
     {
         var data = await DataRetriever.RetrieveSortingData();
 
-        var newArrayFull = new DataStructures.Lists.DynamicArray<int>();
+        var newArrayFull = new DataStructures.Lists.DoublyLinkedList<int>();
 
         foreach (var item in data.lijst_willekeurig_10000)
         {
@@ -166,7 +166,7 @@ public class DynamicArray(ITestOutputHelper testOutputHelper)
 
         var elapsedMsFull = watch.ElapsedMilliseconds;
 
-        var newArray1000 = new DataStructures.Lists.DynamicArray<int>();
+        var newArray1000 = new DataStructures.Lists.DoublyLinkedList<int>();
 
         foreach (var item in data.lijst_willekeurig_10000)
         {
@@ -187,7 +187,7 @@ public class DynamicArray(ITestOutputHelper testOutputHelper)
 
         var elapsedMs1000 = watch.ElapsedMilliseconds;
 
-        var newArray100 = new DataStructures.Lists.DynamicArray<int>();
+        var newArray100 = new DataStructures.Lists.DoublyLinkedList<int>();
 
         foreach (var item in data.lijst_willekeurig_10000)
         {
@@ -219,7 +219,7 @@ public class DynamicArray(ITestOutputHelper testOutputHelper)
     {
         var data = await DataRetriever.RetrieveSortingData();
 
-        var newArrayFull = new DataStructures.Lists.DynamicArray<int>();
+        var newArrayFull = new DataStructures.Lists.DoublyLinkedList<int>();
 
         foreach (var item in data.lijst_willekeurig_10000)
         {
@@ -240,7 +240,7 @@ public class DynamicArray(ITestOutputHelper testOutputHelper)
 
         var elapsedMsFull = watch.ElapsedMilliseconds;
 
-        var newArray1000 = new DataStructures.Lists.DynamicArray<int>();
+        var newArray1000 = new DataStructures.Lists.DoublyLinkedList<int>();
 
         foreach (var item in data.lijst_willekeurig_10000)
         {
@@ -261,7 +261,7 @@ public class DynamicArray(ITestOutputHelper testOutputHelper)
 
         var elapsedMs1000 = watch.ElapsedMilliseconds;
 
-        var newArray100 = new DataStructures.Lists.DynamicArray<int>();
+        var newArray100 = new DataStructures.Lists.DoublyLinkedList<int>();
 
         foreach (var item in data.lijst_willekeurig_10000)
         {
@@ -293,7 +293,7 @@ public class DynamicArray(ITestOutputHelper testOutputHelper)
     {
         var data = await DataRetriever.RetrieveSortingData();
 
-        var newArrayFull = new DataStructures.Lists.DynamicArray<int>();
+        var newArrayFull = new DataStructures.Lists.DoublyLinkedList<int>();
 
         foreach (var item in data.lijst_willekeurig_10000)
         {
@@ -314,7 +314,7 @@ public class DynamicArray(ITestOutputHelper testOutputHelper)
 
         var elapsedMsFull = watch.ElapsedMilliseconds;
 
-        var newArray1000 = new DataStructures.Lists.DynamicArray<int>();
+        var newArray1000 = new DataStructures.Lists.DoublyLinkedList<int>();
 
         foreach (var item in data.lijst_willekeurig_10000)
         {
@@ -335,7 +335,7 @@ public class DynamicArray(ITestOutputHelper testOutputHelper)
 
         var elapsedMs1000 = watch.ElapsedMilliseconds;
 
-        var newArray100 = new DataStructures.Lists.DynamicArray<int>();
+        var newArray100 = new DataStructures.Lists.DoublyLinkedList<int>();
 
         foreach (var item in data.lijst_willekeurig_10000)
         {

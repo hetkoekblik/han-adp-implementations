@@ -1,3 +1,5 @@
+using System.Collections;
+
 namespace han_adp_implementations.DataStructures.Lists;
 
 public class DoublyLinkedList<T> : IList<T>
@@ -146,6 +148,11 @@ public class DoublyLinkedList<T> : IList<T>
             currentNode = currentNode.Next;
         }
     }
+    
+    public void RemoveItem(T item)
+    {
+        Remove(item);
+    }
 
     public bool Contains(T item)
     {
@@ -183,5 +190,22 @@ public class DoublyLinkedList<T> : IList<T>
         }
         
         return -1;
+    }
+
+    public IEnumerator<T> GetEnumerator()
+    {
+        var currentNode = _head;
+        
+        while (currentNode != null)
+        {
+            yield return currentNode.Value;
+        
+            currentNode = currentNode.Next;
+        }
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
     }
 }

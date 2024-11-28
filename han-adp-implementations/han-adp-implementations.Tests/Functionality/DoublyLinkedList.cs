@@ -7,12 +7,13 @@ public class DoublyLinkedList
     [Fact]
     public void IsCountAddAndGetWorking()
     {
-        var newArray = new DataStructures.Lists.DoublyLinkedList<int>();
-        
-        newArray.Add(1);
-        newArray.Add(2);
-        newArray.Add(3);
-        
+        var newArray = new DataStructures.Lists.DoublyLinkedList<int>
+        {
+            1,
+            2,
+            3
+        };
+
         Assert.Equal(3, newArray.Count());
         
         Assert.Equal(1, newArray[0]);
@@ -23,12 +24,13 @@ public class DoublyLinkedList
     [Fact]
     public void IsRemoveByIndexWorking()
     {
-        var newArray = new DataStructures.Lists.DoublyLinkedList<int>();
-        
-        newArray.Add(1);
-        newArray.Add(2);
-        newArray.Add(3);
-        
+        var newArray = new DataStructures.Lists.DoublyLinkedList<int>
+        {
+            1,
+            2,
+            3
+        };
+
         newArray.Remove(1);
         
         Assert.Equal(2, newArray.Count());
@@ -40,12 +42,13 @@ public class DoublyLinkedList
     [Fact]
     public void IsRemoveByItemWorking()
     {
-        var newArray = new DataStructures.Lists.DoublyLinkedList<string>();
-        
-        newArray.Add("a");
-        newArray.Add("b");
-        newArray.Add("c");
-        
+        var newArray = new DataStructures.Lists.DoublyLinkedList<string>
+        {
+            "a",
+            "b",
+            "c"
+        };
+
         newArray.Remove("b");
         
         Assert.Equal(2, newArray.Count());
@@ -57,12 +60,13 @@ public class DoublyLinkedList
     [Fact]
     public void IsSetWorking()
     {
-        var newArray = new DataStructures.Lists.DoublyLinkedList<int>();
-        
-        newArray.Add(1);
-        newArray.Add(2);
-        newArray.Add(3);
-        
+        var newArray = new DataStructures.Lists.DoublyLinkedList<int>
+        {
+            1,
+            2,
+            3
+        };
+
         newArray[1] = 4;
         
         Assert.Equal(3, newArray.Count());
@@ -75,12 +79,13 @@ public class DoublyLinkedList
     [Fact]
     public void IsContainsWorking()
     {
-        var newArray = new DataStructures.Lists.DoublyLinkedList<int>();
-        
-        newArray.Add(1);
-        newArray.Add(2);
-        newArray.Add(3);
-        
+        var newArray = new DataStructures.Lists.DoublyLinkedList<int>
+        {
+            1,
+            2,
+            3
+        };
+
         Assert.True(newArray.Contains(2));
         Assert.False(newArray.Contains(4));
     }
@@ -88,12 +93,13 @@ public class DoublyLinkedList
     [Fact]
     public void IsIndexOfWorking()
     {
-        var newArray = new DataStructures.Lists.DoublyLinkedList<int>();
-        
-        newArray.Add(1);
-        newArray.Add(2);
-        newArray.Add(3);
-        
+        var newArray = new DataStructures.Lists.DoublyLinkedList<int>
+        {
+            1,
+            2,
+            3
+        };
+
         Assert.Equal(1, newArray.IndexOf(2));
         Assert.Equal(-1, newArray.IndexOf(4));
     }
