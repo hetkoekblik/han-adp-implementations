@@ -9,10 +9,16 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="dataset_sorteren.json">
+      <None Update="Datasets\Sorting\dataset_sorting.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
-      <None Update="dataset_hashing.json">
+      <None Update="Datasets\Graphs\dataset_graphs.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="Datasets\Hashing\dataset_hashing.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Update="Datasets\Sorting\random_strings.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>

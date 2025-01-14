@@ -7,14 +7,17 @@ namespace han_adp_implementations.Tests.Complexity;
 
 public class Sorting(ITestOutputHelper testOutputHelper)
 {
+    private const string Dataset = "dataset_sorting";
+    private const string Data = "lijst_willekeurig_10000";
+
     [Fact]
     public async Task CheckInsertionSortComplexity()
     {
-        var data = await DataRetriever.RetrieveSortingData();
+        var data = await DataRetriever.RetrieveSortingData<int>(Dataset, Data);
         
         var fullList = new DataStructures.Lists.DynamicArray<int>();
 
-        foreach (var item in data.lijst_willekeurig_10000)
+        foreach (var item in data)
         {
             fullList.Add(item);
         }
@@ -29,9 +32,9 @@ public class Sorting(ITestOutputHelper testOutputHelper)
         
         var hundredList = new DataStructures.Lists.DynamicArray<int>();
         
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length / 100; i++)
+        for (var i = 0; i < data.Count() / 100; i++)
         {
-            hundredList.Add(data.lijst_willekeurig_10000[i]);
+            hundredList.Add(data[i]);
         }
         
         watch.Restart();
@@ -44,9 +47,9 @@ public class Sorting(ITestOutputHelper testOutputHelper)
         
         var tenList = new DataStructures.Lists.DynamicArray<int>();
         
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length / 10; i++)
+        for (var i = 0; i < data.Count() / 10; i++)
         {
-            tenList.Add(data.lijst_willekeurig_10000[i]);
+            tenList.Add(data[i]);
         }
         
         watch.Restart();
@@ -57,19 +60,19 @@ public class Sorting(ITestOutputHelper testOutputHelper)
         
         var elapsedMs10 = watch.ElapsedTicks;
         
-        testOutputHelper.WriteLine($"Insertion sort {data.lijst_willekeurig_10000.Length / 100} items: {elapsedMs100} ticks");
-        testOutputHelper.WriteLine($"Insertion sort {data.lijst_willekeurig_10000.Length / 10} items: {elapsedMs10} ticks");
-        testOutputHelper.WriteLine($"Insertion sort {data.lijst_willekeurig_10000.Length} items: {elapsedMsFull} ticks");
+        testOutputHelper.WriteLine($"Insertion sort {data.Count() / 100} items: {elapsedMs100} ticks");
+        testOutputHelper.WriteLine($"Insertion sort {data.Count() / 10} items: {elapsedMs10} ticks");
+        testOutputHelper.WriteLine($"Insertion sort {data.Count()} items: {elapsedMsFull} ticks");
     }
 
     [Fact]
     public async Task CheckSelectionSortComplexity()
     {
-        var data = await DataRetriever.RetrieveSortingData();
+        var data = await DataRetriever.RetrieveSortingData<int>(Dataset, Data);
         
         var fullList = new DataStructures.Lists.DynamicArray<int>();
 
-        foreach (var item in data.lijst_willekeurig_10000)
+        foreach (var item in data)
         {
             fullList.Add(item);
         }
@@ -84,9 +87,9 @@ public class Sorting(ITestOutputHelper testOutputHelper)
         
         var hundredList = new DataStructures.Lists.DynamicArray<int>();
         
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length / 100; i++)
+        for (var i = 0; i < data.Count() / 100; i++)
         {
-            hundredList.Add(data.lijst_willekeurig_10000[i]);
+            hundredList.Add(data[i]);
         }
         
         watch.Restart();
@@ -99,9 +102,9 @@ public class Sorting(ITestOutputHelper testOutputHelper)
         
         var tenList = new DataStructures.Lists.DynamicArray<int>();
         
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length / 10; i++)
+        for (var i = 0; i < data.Count() / 10; i++)
         {
-            tenList.Add(data.lijst_willekeurig_10000[i]);
+            tenList.Add(data[i]);
         }
         
         watch.Restart();
@@ -112,19 +115,19 @@ public class Sorting(ITestOutputHelper testOutputHelper)
         
         var elapsedMs10 = watch.ElapsedTicks;
         
-        testOutputHelper.WriteLine($"Selection sort {data.lijst_willekeurig_10000.Length / 100} items: {elapsedMs100} ticks");
-        testOutputHelper.WriteLine($"Selection sort {data.lijst_willekeurig_10000.Length / 10} items: {elapsedMs10} ticks");
-        testOutputHelper.WriteLine($"Selection sort {data.lijst_willekeurig_10000.Length} items: {elapsedMsFull} ticks");
+        testOutputHelper.WriteLine($"Selection sort {data.Count() / 100} items: {elapsedMs100} ticks");
+        testOutputHelper.WriteLine($"Selection sort {data.Count() / 10} items: {elapsedMs10} ticks");
+        testOutputHelper.WriteLine($"Selection sort {data.Count()} items: {elapsedMsFull} ticks");
     }
 
     [Fact]
     public async Task CheckParallelMergeSortComplexity()
     {
-        var data = await DataRetriever.RetrieveSortingData();
+        var data = await DataRetriever.RetrieveSortingData<int>(Dataset, Data);
         
         var fullList = new DataStructures.Lists.DynamicArray<int>();
 
-        foreach (var item in data.lijst_willekeurig_10000)
+        foreach (var item in data)
         {
             fullList.Add(item);
         }
@@ -139,9 +142,9 @@ public class Sorting(ITestOutputHelper testOutputHelper)
         
         var hundredList = new DataStructures.Lists.DynamicArray<int>();
         
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length / 100; i++)
+        for (var i = 0; i < data.Count() / 100; i++)
         {
-            hundredList.Add(data.lijst_willekeurig_10000[i]);
+            hundredList.Add(data[i]);
         }
         
         watch.Restart();
@@ -154,9 +157,9 @@ public class Sorting(ITestOutputHelper testOutputHelper)
         
         var tenList = new DataStructures.Lists.DynamicArray<int>();
         
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length / 10; i++)
+        for (var i = 0; i < data.Count() / 10; i++)
         {
-            tenList.Add(data.lijst_willekeurig_10000[i]);
+            tenList.Add(data[i]);
         }
         
         watch.Restart();
@@ -167,19 +170,19 @@ public class Sorting(ITestOutputHelper testOutputHelper)
         
         var elapsedMs10 = watch.ElapsedTicks;
         
-        testOutputHelper.WriteLine($"Parallel merge sort {data.lijst_willekeurig_10000.Length / 100} items: {elapsedMs100} ticks");
-        testOutputHelper.WriteLine($"Parallel merge sort {data.lijst_willekeurig_10000.Length / 10} items: {elapsedMs10} ticks");
-        testOutputHelper.WriteLine($"Parallel merge sort {data.lijst_willekeurig_10000.Length} items: {elapsedMsFull} ticks");
+        testOutputHelper.WriteLine($"Parallel merge sort {data.Count() / 100} items: {elapsedMs100} ticks");
+        testOutputHelper.WriteLine($"Parallel merge sort {data.Count() / 10} items: {elapsedMs10} ticks");
+        testOutputHelper.WriteLine($"Parallel merge sort {data.Count()} items: {elapsedMsFull} ticks");
     }
     
     [Fact]
     public async Task CheckQuickSortComplexity()
     {
-        var data = await DataRetriever.RetrieveSortingData();
+        var data = await DataRetriever.RetrieveSortingData<int>(Dataset, Data);
         
         var fullList = new DataStructures.Lists.DynamicArray<int>();
 
-        foreach (var item in data.lijst_willekeurig_10000)
+        foreach (var item in data)
         {
             fullList.Add(item);
         }
@@ -194,9 +197,9 @@ public class Sorting(ITestOutputHelper testOutputHelper)
         
         var hundredList = new DataStructures.Lists.DynamicArray<int>();
         
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length / 100; i++)
+        for (var i = 0; i < data.Count() / 100; i++)
         {
-            hundredList.Add(data.lijst_willekeurig_10000[i]);
+            hundredList.Add(data[i]);
         }
         
         watch.Restart();
@@ -209,9 +212,9 @@ public class Sorting(ITestOutputHelper testOutputHelper)
         
         var tenList = new DataStructures.Lists.DynamicArray<int>();
         
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length / 10; i++)
+        for (var i = 0; i < data.Count() / 10; i++)
         {
-            tenList.Add(data.lijst_willekeurig_10000[i]);
+            tenList.Add(data[i]);
         }
         
         watch.Restart();
@@ -222,8 +225,8 @@ public class Sorting(ITestOutputHelper testOutputHelper)
         
         var elapsedMs10 = watch.ElapsedTicks;
         
-        testOutputHelper.WriteLine($"Quick sort {data.lijst_willekeurig_10000.Length / 100} items: {elapsedMs100} ticks");
-        testOutputHelper.WriteLine($"Quick sort {data.lijst_willekeurig_10000.Length / 10} items: {elapsedMs10} ticks");
-        testOutputHelper.WriteLine($"Quick sort {data.lijst_willekeurig_10000.Length} items: {elapsedMsFull} ticks");
+        testOutputHelper.WriteLine($"Quick sort {data.Count() / 100} items: {elapsedMs100} ticks");
+        testOutputHelper.WriteLine($"Quick sort {data.Count() / 10} items: {elapsedMs10} ticks");
+        testOutputHelper.WriteLine($"Quick sort {data.Count()} items: {elapsedMsFull} ticks");
     }
 }

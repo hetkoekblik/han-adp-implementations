@@ -1,6 +1,8 @@
+using System.Collections;
+
 namespace han_adp_implementations.DataStructures.Others;
 
-public class HashTable<TKey, TValue> where TKey : IComparable<TKey>
+public class HashTable<TKey, TValue> : IEnumerable<(TKey Key, TValue Value)> where TKey : IComparable<TKey>
 {
     private class Node(TKey key, TValue value)
     {
@@ -207,5 +209,21 @@ public class HashTable<TKey, TValue> where TKey : IComparable<TKey>
         }
         
         return right;
+    }
+
+    public IEnumerator<(TKey Key, TValue Value)> GetEnumerator()
+    {
+        foreach (var node in _array)
+        {
+            if (node is { Deleted: false })
+            {
+                yield return (node.Key, node.Value);
+            }
+        }
+    }
+
+    IEnumerator IEnumerable.GetEnumerator()
+    {
+        return GetEnumerator();
     }
 }

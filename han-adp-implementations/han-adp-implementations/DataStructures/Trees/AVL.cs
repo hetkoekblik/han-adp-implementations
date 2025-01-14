@@ -16,27 +16,30 @@ public class AVL<T> where T : IComparable<T>
     {
         return Find(_root, item);
     }
-    
+
     private static T? Find(Node? node, T item)
     {
-        while (node != null)
+        while (true)
         {
+            if (node == null)
+            {
+                return default;
+            }
+
             switch (item.CompareTo(node.Value))
             {
                 case < 0:
                     node = node.Left;
-                    break;
+                    continue;
                 case > 0:
                     node = node.Right;
-                    break;
+                    continue;
                 default:
                     return node.Value;
             }
         }
-
-        return default;
     }
-    
+
     public T? FindMin()
     {
         return _root == null ? default : FindMin(_root).Value;
@@ -49,23 +52,16 @@ public class AVL<T> where T : IComparable<T>
     
     public void Insert(T item)
     {
-        if (_root == null)
-        {
-            _root = new Node(item, null, null);
-        }
-        else
-        {
-            Insert(_root, item);
-        }
+        _root = Insert(_root, item);
     }
     
-    private static Node Insert(Node node, T item)
+    private static Node? Insert(Node? node, T item)
     {
         if (node == null)
         {
             return new Node(item, null, null);
         }
-        
+
         switch (item.CompareTo(node.Value))
         {
             case < 0:
@@ -82,31 +78,38 @@ public class AVL<T> where T : IComparable<T>
         return Balance(node);
     }
     
-    private static Node Balance(Node node)
+    private static Node? Balance(Node? node)
     {
-        var balance = GetBalance(node);
-        
-        if (balance > 1)
+        if (node == null)
         {
-            if (GetBalance(node.Left) < 0)
-            {
-                node.Left = RotateLeft(node.Left!);
-            }
-            
-            return RotateRight(node);
-        }
-        
-        if (balance < -1)
-        {
-            if (GetBalance(node.Right) > 0)
-            {
-                node.Right = RotateRight(node.Right!);
-            }
-            
-            return RotateLeft(node);
+            return null;
         }
 
-        return node;
+        var balance = GetBalance(node);
+
+        switch (balance)
+        {
+            case > 1:
+            {
+                if (node.Left != null && GetBalance(node.Left) < 0)
+                {
+                    node.Left = RotateLeft(node.Left);
+                }
+
+                return RotateRight(node);
+            }
+            case < -1:
+            {
+                if (node.Right != null && GetBalance(node.Right) > 0)
+                {
+                    node.Right = RotateRight(node.Right);
+                }
+
+                return RotateLeft(node);
+            }
+            default:
+                return node;
+        }
     }
     
     private static int GetBalance(Node node)
@@ -116,32 +119,33 @@ public class AVL<T> where T : IComparable<T>
     
     private static int GetHeight(Node? node)
     {
-        if (node == null)
-        {
-            return 0;
-        }
-
-        return 1 + Math.Max(GetHeight(node.Left), GetHeight(node.Right));
-    }
-    
-    private static Node RotateLeft(Node node)
-    {
-        var pivot = node.Right!;
-        
-        node.Right = pivot.Left;
-        pivot.Left = node;
-        
-        return pivot;
+        return node == null ? 0 : 1 + Math.Max(GetHeight(node.Left), GetHeight(node.Right));
     }
     
     private static Node RotateRight(Node node)
     {
-        var pivot = node.Left!;
+        var newRoot = node.Left;
         
-        node.Left = pivot.Right;
-        pivot.Right = node;
+        node.Left = newRoot?.Right;
         
-        return pivot;
+        if (newRoot == null) return node;
+        
+        newRoot.Right = node;
+        
+        return newRoot;
+    }
+    
+    private static Node RotateLeft(Node node)
+    {
+        var newRoot = node.Right;
+        
+        node.Right = newRoot?.Left;
+        
+        if (newRoot == null) return node;
+        
+        newRoot.Left = node;
+        
+        return newRoot;
     }
     
     public void Remove(T item)

@@ -6,21 +6,21 @@ namespace han_adp_implementations.Tests.Complexity;
 
 public class DynamicArray(ITestOutputHelper testOutputHelper)
 {
+    private const string Dataset = "dataset_sorting";
+    private const string Data = "lijst_willekeurig_10000";
+    
     [Fact]
     public async Task CheckAddComplexity()
     {
-        var data = await DataRetriever.RetrieveSortingData();
+        var data = await DataRetriever.RetrieveSortingData<int>(Dataset, Data);
         
         var newArrayFull = new DataStructures.Lists.DynamicArray<int>();
         
         var watch = Stopwatch.StartNew();
         
-        foreach (var item in data.lijst_willekeurig_10000)
+        foreach (var item in data)
         {
             newArrayFull.Add(item);
-            
-            //wait for 1ms to simulate the time it takes to add an item, since adding is too fast to measure
-            await Task.Delay(1);
         }
         
         watch.Stop();
@@ -31,12 +31,9 @@ public class DynamicArray(ITestOutputHelper testOutputHelper)
         
         watch.Restart();
         
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length / 100; i++)
+        for (var i = 0; i < data.Count / 100; i++)
         {
-            newArray100.Add(data.lijst_willekeurig_10000[i]);
-            
-            //wait for 1ms to simulate the time it takes to add an item, since adding is too fast to measure
-            await Task.Delay(1);
+            newArray100.Add(data[i]);
         }
         
         watch.Stop();
@@ -47,43 +44,37 @@ public class DynamicArray(ITestOutputHelper testOutputHelper)
         
         watch.Restart();
         
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length / 10; i++)
+        for (var i = 0; i < data.Count / 10; i++)
         {
-            newArray10.Add(data.lijst_willekeurig_10000[i]);
-            
-            //wait for 1ms to simulate the time it takes to add an item, since adding is too fast to measure
-            await Task.Delay(1);
+            newArray10.Add(data[i]);
         }
         
         watch.Stop();
         
         var elapsedMs10 = watch.ElapsedTicks;
         
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length / 100} items: {elapsedMs100} ticks");
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length / 10} items: {elapsedMs10} ticks");
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length} items: {elapsedMsFull} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count / 100} items: {elapsedMs100} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count / 10} items: {elapsedMs10} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count} items: {elapsedMsFull} ticks");
     }
     
     [Fact]
     public async Task CheckRemoveByIndexComplexity()
     {
-        var data = await DataRetriever.RetrieveSortingData();
+        var data = await DataRetriever.RetrieveSortingData<int>(Dataset, Data);
         
         var newArrayFull = new DataStructures.Lists.DynamicArray<int>();
 
-        foreach (var item in data.lijst_willekeurig_10000)
+        foreach (var item in data)
         {
             newArrayFull.Add(item);
         }
 
         var watch = Stopwatch.StartNew();
 
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length; i++)
+        for (var i = 0; i < data.Count; i++)
         {
             newArrayFull.Remove(0);
-
-            //wait for 1ms to simulate the time it takes to remove an item, since removing is too fast to measure
-            await Task.Delay(1);
         }
 
         watch.Stop();
@@ -92,19 +83,16 @@ public class DynamicArray(ITestOutputHelper testOutputHelper)
 
         var newArray100 = new DataStructures.Lists.DynamicArray<int>();
 
-        foreach (var item in data.lijst_willekeurig_10000)
+        foreach (var item in data)
         {
             newArray100.Add(item);
         }
 
         watch.Restart();
 
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length / 100; i++)
+        for (var i = 0; i < data.Count / 100; i++)
         {
             newArray100.Remove(0);
-
-            //wait for 1ms to simulate the time it takes to remove an item, since removing is too fast to measure
-            await Task.Delay(1);
         }
 
         watch.Stop();
@@ -113,50 +101,44 @@ public class DynamicArray(ITestOutputHelper testOutputHelper)
 
         var newArray10 = new DataStructures.Lists.DynamicArray<int>();
 
-        foreach (var item in data.lijst_willekeurig_10000)
+        foreach (var item in data)
         {
             newArray10.Add(item);
         }
 
         watch.Restart();
 
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length / 10; i++)
+        for (var i = 0; i < data.Count / 10; i++)
         {
             newArray10.Remove(0);
-
-            //wait for 1ms to simulate the time it takes to remove an item, since removing is too fast to measure
-            await Task.Delay(1);
         }
 
         watch.Stop();
 
         var elapsedMs10 = watch.ElapsedTicks;
 
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length / 100} items: {elapsedMs100} ticks");
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length / 10} items: {elapsedMs10} ticks");
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length} items: {elapsedMsFull} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count / 100} items: {elapsedMs100} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count / 10} items: {elapsedMs10} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count} items: {elapsedMsFull} ticks");
     }
     
     [Fact]
     public async Task CheckRemoveByItemComplexity()
     {
-        var data = await DataRetriever.RetrieveSortingData();
+        var data = await DataRetriever.RetrieveSortingData<int>(Dataset, Data);
 
         var newArrayFull = new DataStructures.Lists.DynamicArray<int>();
 
-        foreach (var item in data.lijst_willekeurig_10000)
+        foreach (var item in data)
         {
             newArrayFull.Add(item);
         }
 
         var watch = Stopwatch.StartNew();
 
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length; i++)
+        for (var i = 0; i < data.Count; i++)
         {
             newArrayFull.RemoveItem(newArrayFull[0]);
-
-            //wait for 1ms to simulate the time it takes to remove an item, since removing is too fast to measure
-            await Task.Delay(1);
         }
 
         watch.Stop();
@@ -165,19 +147,16 @@ public class DynamicArray(ITestOutputHelper testOutputHelper)
 
         var newArray100 = new DataStructures.Lists.DynamicArray<int>();
 
-        foreach (var item in data.lijst_willekeurig_10000)
+        foreach (var item in data)
         {
             newArray100.Add(item);
         }
 
         watch.Restart();
 
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length / 100; i++)
+        for (var i = 0; i < data.Count / 100; i++)
         {
             newArray100.RemoveItem(newArray100[0]);
-
-            //wait for 1ms to simulate the time it takes to remove an item, since removing is too fast to measure
-            await Task.Delay(1);
         }
 
         watch.Stop();
@@ -186,50 +165,44 @@ public class DynamicArray(ITestOutputHelper testOutputHelper)
 
         var newArray10 = new DataStructures.Lists.DynamicArray<int>();
 
-        foreach (var item in data.lijst_willekeurig_10000)
+        foreach (var item in data)
         {
             newArray10.Add(item);
         }
 
         watch.Restart();
 
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length / 10; i++)
+        for (var i = 0; i < data.Count / 10; i++)
         {
             newArray10.RemoveItem(newArray10[0]);
-
-            //wait for 1ms to simulate the time it takes to remove an item, since removing is too fast to measure
-            await Task.Delay(1);
         }
 
         watch.Stop();
 
         var elapsedMs10 = watch.ElapsedTicks;
 
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length / 100} items: {elapsedMs100} ticks");
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length / 10} items: {elapsedMs10} ticks");
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length} items: {elapsedMsFull} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count / 100} items: {elapsedMs100} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count / 10} items: {elapsedMs10} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count} items: {elapsedMsFull} ticks");
     }
     
     [Fact]
     public async Task CheckContainsComplexity()
     {
-        var data = await DataRetriever.RetrieveSortingData();
+        var data = await DataRetriever.RetrieveSortingData<int>(Dataset, Data);
 
         var newArrayFull = new DataStructures.Lists.DynamicArray<int>();
 
-        foreach (var item in data.lijst_willekeurig_10000)
+        foreach (var item in data)
         {
             newArrayFull.Add(item);
         }
 
         var watch = Stopwatch.StartNew();
 
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length; i++)
+        for (var i = 0; i < data.Count; i++)
         {
             newArrayFull.Contains(newArrayFull[0]);
-
-            //wait for 1ms to simulate the time it takes to check if an item is in the list, since checking is too fast to measure
-            await Task.Delay(1);
         }
 
         watch.Stop();
@@ -238,19 +211,16 @@ public class DynamicArray(ITestOutputHelper testOutputHelper)
 
         var newArray100 = new DataStructures.Lists.DynamicArray<int>();
 
-        foreach (var item in data.lijst_willekeurig_10000)
+        foreach (var item in data)
         {
             newArray100.Add(item);
         }
 
         watch.Restart();
 
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length / 100; i++)
+        for (var i = 0; i < data.Count / 100; i++)
         {
             newArray100.Contains(newArray100[0]);
-
-            //wait for 1ms to simulate the time it takes to check if an item is in the list, since checking is too fast to measure
-            await Task.Delay(1);
         }
 
         watch.Stop();
@@ -259,50 +229,44 @@ public class DynamicArray(ITestOutputHelper testOutputHelper)
 
         var newArray10 = new DataStructures.Lists.DynamicArray<int>();
 
-        foreach (var item in data.lijst_willekeurig_10000)
+        foreach (var item in data)
         {
             newArray10.Add(item);
         }
 
         watch.Restart();
 
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length / 10; i++)
+        for (var i = 0; i < data.Count / 10; i++)
         {
             newArray10.Contains(newArray10[0]);
-
-            //wait for 1ms to simulate the time it takes to check if an item is in the list, since checking is too fast to measure
-            await Task.Delay(1);
         }
 
         watch.Stop();
 
         var elapsedMs10 = watch.ElapsedTicks;
 
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length / 100} items: {elapsedMs100} ticks");
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length / 10} items: {elapsedMs10} ticks");
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length} items: {elapsedMsFull} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count / 100} items: {elapsedMs100} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count / 10} items: {elapsedMs10} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count} items: {elapsedMsFull} ticks");
     }
     
     [Fact]
     public async Task CheckIndexOfComplexity()
     {
-        var data = await DataRetriever.RetrieveSortingData();
+        var data = await DataRetriever.RetrieveSortingData<int>(Dataset, Data);
 
         var newArrayFull = new DataStructures.Lists.DynamicArray<int>();
 
-        foreach (var item in data.lijst_willekeurig_10000)
+        foreach (var item in data)
         {
             newArrayFull.Add(item);
         }
 
         var watch = Stopwatch.StartNew();
 
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length; i++)
+        for (var i = 0; i < data.Count; i++)
         {
             newArrayFull.IndexOf(newArrayFull[0]);
-
-            //wait for 1ms to simulate the time it takes to get the index of an item, since getting the index is too fast to measure
-            await Task.Delay(1);
         }
 
         watch.Stop();
@@ -311,19 +275,16 @@ public class DynamicArray(ITestOutputHelper testOutputHelper)
 
         var newArray100 = new DataStructures.Lists.DynamicArray<int>();
 
-        foreach (var item in data.lijst_willekeurig_10000)
+        foreach (var item in data)
         {
             newArray100.Add(item);
         }
 
         watch.Restart();
 
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length / 100; i++)
+        for (var i = 0; i < data.Count / 100; i++)
         {
             newArray100.IndexOf(newArray100[0]);
-
-            //wait for 1ms to simulate the time it takes to get the index of an item, since getting the index is too fast to measure
-            await Task.Delay(1);
         }
 
         watch.Stop();
@@ -332,27 +293,24 @@ public class DynamicArray(ITestOutputHelper testOutputHelper)
 
         var newArray10 = new DataStructures.Lists.DynamicArray<int>();
 
-        foreach (var item in data.lijst_willekeurig_10000)
+        foreach (var item in data)
         {
             newArray10.Add(item);
         }
 
         watch.Restart();
 
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length / 10; i++)
+        for (var i = 0; i < data.Count / 10; i++)
         {
             newArray10.IndexOf(newArray10[0]);
-
-            //wait for 1ms to simulate the time it takes to get the index of an item, since getting the index is too fast to measure
-            await Task.Delay(1);
         }
 
         watch.Stop();
 
         var elapsedMs10 = watch.ElapsedTicks;
 
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length / 100} items: {elapsedMs100} ticks");
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length / 10} items: {elapsedMs10} ticks");
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length} items: {elapsedMsFull} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count / 100} items: {elapsedMs100} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count / 10} items: {elapsedMs10} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count} items: {elapsedMsFull} ticks");
     }
 }

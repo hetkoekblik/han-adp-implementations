@@ -6,16 +6,19 @@ namespace han_adp_implementations.Tests.Complexity;
 
 public class Deque(ITestOutputHelper testOutputHelper)
 {
+    private const string Dataset = "dataset_sorting";
+    private const string Data = "lijst_willekeurig_10000";
+    
     [Fact]
     public async Task CheckInsertLeftComplexity()
     {
-        var data = await DataRetriever.RetrieveSortingData();
+        var data = await DataRetriever.RetrieveSortingData<int>(Dataset, Data);
         
         var newDequeFull = new DataStructures.Others.Deque<int>();
         
         var watch = Stopwatch.StartNew();
         
-        foreach (var item in data.lijst_willekeurig_10000)
+        foreach (var item in data)
         {
             newDequeFull.InsertLeft(item);
         }
@@ -28,9 +31,9 @@ public class Deque(ITestOutputHelper testOutputHelper)
         
         watch.Restart();
         
-        for(var i = 0; i < data.lijst_willekeurig_10000.Length / 100; i++)
+        for(var i = 0; i < data.Count() / 100; i++)
         {
-            newDeque100.InsertLeft(data.lijst_willekeurig_10000[i]);
+            newDeque100.InsertLeft(data[i]);
         }
         
         watch.Stop();
@@ -41,30 +44,30 @@ public class Deque(ITestOutputHelper testOutputHelper)
         
         watch.Restart();
         
-        for(var i = 0; i < data.lijst_willekeurig_10000.Length / 10; i++)
+        for(var i = 0; i < data.Count() / 10; i++)
         {
-            newDeque10.InsertLeft(data.lijst_willekeurig_10000[i]);
+            newDeque10.InsertLeft(data[i]);
         }
         
         watch.Stop();
         
         var elapsedMs10 = watch.ElapsedTicks;
         
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length / 100} items: {elapsedMs100} ticks");
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length / 10} items: {elapsedMs10} ticks");
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length} items: {elapsedMsFull} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count() / 100} items: {elapsedMs100} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count() / 10} items: {elapsedMs10} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count()} items: {elapsedMsFull} ticks");
     }
 
     [Fact]
     public async Task CheckInsertRightComplexity()
     {
-        var data = await DataRetriever.RetrieveSortingData();
+        var data = await DataRetriever.RetrieveSortingData<int>(Dataset, Data);
         
         var newDequeFull = new DataStructures.Others.Deque<int>();
         
         var watch = Stopwatch.StartNew();
         
-        foreach (var item in data.lijst_willekeurig_10000)
+        foreach (var item in data)
         {
             newDequeFull.InsertRight(item);
         }
@@ -77,9 +80,9 @@ public class Deque(ITestOutputHelper testOutputHelper)
         
         watch.Restart();
         
-        for(var i = 0; i < data.lijst_willekeurig_10000.Length / 100; i++)
+        for(var i = 0; i < data.Count() / 100; i++)
         {
-            newDeque100.InsertRight(data.lijst_willekeurig_10000[i]);
+            newDeque100.InsertRight(data[i]);
         }
         
         watch.Stop();
@@ -90,35 +93,35 @@ public class Deque(ITestOutputHelper testOutputHelper)
         
         watch.Restart();
         
-        for(var i = 0; i < data.lijst_willekeurig_10000.Length / 10; i++)
+        for(var i = 0; i < data.Count() / 10; i++)
         {
-            newDeque10.InsertRight(data.lijst_willekeurig_10000[i]);
+            newDeque10.InsertRight(data[i]);
         }
         
         watch.Stop();
         
         var elapsedMs10 = watch.ElapsedTicks;
         
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length / 100} items: {elapsedMs100} ticks");
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length / 10} items: {elapsedMs10} ticks");
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length} items: {elapsedMsFull} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count() / 100} items: {elapsedMs100} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count() / 10} items: {elapsedMs10} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count()} items: {elapsedMsFull} ticks");
     }
     
     [Fact]
     public async Task CheckDeleteLeftComplexity()
     {
-        var data = await DataRetriever.RetrieveSortingData();
+        var data = await DataRetriever.RetrieveSortingData<int>(Dataset, Data);
         
         var newDequeFull = new DataStructures.Others.Deque<int>();
         
-        foreach (var item in data.lijst_willekeurig_10000)
+        foreach (var item in data)
         {
             newDequeFull.InsertLeft(item);
         }
         
         var watch = Stopwatch.StartNew();
         
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length; i++)
+        for (var i = 0; i < data.Count(); i++)
         {
             newDequeFull.DeleteLeft();
         }
@@ -129,14 +132,14 @@ public class Deque(ITestOutputHelper testOutputHelper)
         
         var newDeque100 = new DataStructures.Others.Deque<int>();
         
-        foreach (var item in data.lijst_willekeurig_10000)
+        foreach (var item in data)
         {
             newDeque100.InsertLeft(item);
         }
         
         watch.Restart();
         
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length / 100; i++)
+        for (var i = 0; i < data.Count() / 100; i++)
         {
             newDeque100.DeleteLeft();
         }
@@ -147,14 +150,14 @@ public class Deque(ITestOutputHelper testOutputHelper)
         
         var newDeque10 = new DataStructures.Others.Deque<int>();
         
-        foreach (var item in data.lijst_willekeurig_10000)
+        foreach (var item in data)
         {
             newDeque10.InsertLeft(item);
         }
         
         watch.Restart();
         
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length / 10; i++)
+        for (var i = 0; i < data.Count() / 10; i++)
         {
             newDeque10.DeleteLeft();
         }
@@ -163,26 +166,26 @@ public class Deque(ITestOutputHelper testOutputHelper)
         
         var elapsedMs10 = watch.ElapsedTicks;
         
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length / 100} items: {elapsedMs100} ticks");
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length / 10} items: {elapsedMs10} ticks");
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length} items: {elapsedMsFull} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count() / 100} items: {elapsedMs100} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count() / 10} items: {elapsedMs10} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count()} items: {elapsedMsFull} ticks");
     }
 
     [Fact]
     public async Task CheckDeleteRightComplexity()
     {
-        var data = await DataRetriever.RetrieveSortingData();
+        var data = await DataRetriever.RetrieveSortingData<int>(Dataset, Data);
         
         var newDequeFull = new DataStructures.Others.Deque<int>();
         
-        foreach (var item in data.lijst_willekeurig_10000)
+        foreach (var item in data)
         {
             newDequeFull.InsertLeft(item);
         }
         
         var watch = Stopwatch.StartNew();
         
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length; i++)
+        for (var i = 0; i < data.Count(); i++)
         {
             newDequeFull.DeleteRight();
         }
@@ -193,14 +196,14 @@ public class Deque(ITestOutputHelper testOutputHelper)
         
         var newDeque100 = new DataStructures.Others.Deque<int>();
         
-        foreach (var item in data.lijst_willekeurig_10000)
+        foreach (var item in data)
         {
             newDeque100.InsertLeft(item);
         }
         
         watch.Restart();
         
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length / 100; i++)
+        for (var i = 0; i < data.Count() / 100; i++)
         {
             newDeque100.DeleteRight();
         }
@@ -211,14 +214,14 @@ public class Deque(ITestOutputHelper testOutputHelper)
         
         var newDeque10 = new DataStructures.Others.Deque<int>();
         
-        foreach (var item in data.lijst_willekeurig_10000)
+        foreach (var item in data)
         {
             newDeque10.InsertLeft(item);
         }
         
         watch.Restart();
         
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length / 10; i++)
+        for (var i = 0; i < data.Count() / 10; i++)
         {
             newDeque10.DeleteRight();
         }
@@ -227,8 +230,8 @@ public class Deque(ITestOutputHelper testOutputHelper)
         
         var elapsedMs10 = watch.ElapsedTicks;
         
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length / 100} items: {elapsedMs100} ticks");
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length / 10} items: {elapsedMs10} ticks");
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length} items: {elapsedMsFull} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count() / 100} items: {elapsedMs100} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count() / 10} items: {elapsedMs10} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count()} items: {elapsedMsFull} ticks");
     }
 }

@@ -6,21 +6,21 @@ namespace han_adp_implementations.Tests.Complexity;
 
 public class PriorityQueue(ITestOutputHelper testOutputHelper)
 {
+    private const string Dataset = "dataset_sorting";
+    private const string Data = "lijst_willekeurig_10000";
+    
     [Fact]
     public async Task CheckAddComplexity()
     {
-        var data = await DataRetriever.RetrieveSortingData();
+        var data = await DataRetriever.RetrieveSortingData<int>(Dataset, Data);
         
         var newQueueFull = new DataStructures.Others.PriorityQueue<int>();
         
         var watch = Stopwatch.StartNew();
         
-        foreach (var item in data.lijst_willekeurig_10000)
+        foreach (var item in data)
         {
             newQueueFull.Add(item);
-            
-            //wait for 1ms to simulate the time it takes to add an item, since adding is too fast to measure
-            await Task.Delay(1);
         }
         
         watch.Stop();
@@ -31,12 +31,9 @@ public class PriorityQueue(ITestOutputHelper testOutputHelper)
         
         watch.Restart();
         
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length / 100; i++)
+        for (var i = 0; i < data.Count() / 100; i++)
         {
-            newQueue100.Add(data.lijst_willekeurig_10000[i]);
-            
-            //wait for 1ms to simulate the time it takes to add an item, since adding is too fast to measure
-            await Task.Delay(1);
+            newQueue100.Add(data[i]);
         }
         
         watch.Stop();
@@ -47,43 +44,37 @@ public class PriorityQueue(ITestOutputHelper testOutputHelper)
         
         watch.Restart();
         
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length / 10; i++)
+        for (var i = 0; i < data.Count() / 10; i++)
         {
-            newQueue10.Add(data.lijst_willekeurig_10000[i]);
-            
-            //wait for 1ms to simulate the time it takes to add an item, since adding is too fast to measure
-            await Task.Delay(1);
+            newQueue10.Add(data[i]);
         }
         
         watch.Stop();
         
         var elapsedMs10 = watch.ElapsedTicks;
         
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length / 100} items: {elapsedMs100} ticks");
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length / 10} items: {elapsedMs10} ticks");
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length} items: {elapsedMsFull} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count() / 100} items: {elapsedMs100} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count() / 10} items: {elapsedMs10} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count()} items: {elapsedMsFull} ticks");
     }
     
     [Fact]
     public async Task CheckPeekComplexity()
     {
-        var data = await DataRetriever.RetrieveSortingData();
+        var data = await DataRetriever.RetrieveSortingData<int>(Dataset, Data);
         
         var newQueueFull = new DataStructures.Others.PriorityQueue<int>();
         
-        foreach (var item in data.lijst_willekeurig_10000)
+        foreach (var item in data)
         {
             newQueueFull.Add(item);
         }
         
         var watch = Stopwatch.StartNew();
         
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length; i++)
+        for (var i = 0; i < data.Count(); i++)
         {
             newQueueFull.Peek();
-            
-            //wait for 1ms to simulate the time it takes to peek, since peeking is too fast to measure
-            await Task.Delay(1);
         }
         
         watch.Stop();
@@ -92,19 +83,16 @@ public class PriorityQueue(ITestOutputHelper testOutputHelper)
         
         var newQueue100 = new DataStructures.Others.PriorityQueue<int>();
         
-        foreach (var item in data.lijst_willekeurig_10000)
+        foreach (var item in data)
         {
             newQueue100.Add(item);
         }
         
         watch.Restart();
         
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length / 100; i++)
+        for (var i = 0; i < data.Count() / 100; i++)
         {
             newQueue100.Peek();
-            
-            //wait for 1ms to simulate the time it takes to peek, since peeking is too fast to measure
-            await Task.Delay(1);
         }
         
         watch.Stop();
@@ -113,50 +101,44 @@ public class PriorityQueue(ITestOutputHelper testOutputHelper)
         
         var newQueue10 = new DataStructures.Others.PriorityQueue<int>();
         
-        foreach (var item in data.lijst_willekeurig_10000)
+        foreach (var item in data)
         {
             newQueue10.Add(item);
         }
         
         watch.Restart();
         
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length / 10; i++)
+        for (var i = 0; i < data.Count() / 10; i++)
         {
             newQueue10.Peek();
-            
-            //wait for 1ms to simulate the time it takes to peek, since peeking is too fast to measure
-            await Task.Delay(1);
         }
         
         watch.Stop();
         
         var elapsedMs10 = watch.ElapsedTicks;
         
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length / 100} items: {elapsedMs100} ticks");
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length / 10} items: {elapsedMs10} ticks");
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length} items: {elapsedMsFull} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count() / 100} items: {elapsedMs100} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count() / 10} items: {elapsedMs10} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count()} items: {elapsedMsFull} ticks");
     }
 
     [Fact]
     public async Task CheckPollComplexity()
     {
-        var data = await DataRetriever.RetrieveSortingData();
+        var data = await DataRetriever.RetrieveSortingData<int>(Dataset, Data);
         
         var newQueueFull = new DataStructures.Others.PriorityQueue<int>();
         
-        foreach (var item in data.lijst_willekeurig_10000)
+        foreach (var item in data)
         {
             newQueueFull.Add(item);
         }
         
         var watch = Stopwatch.StartNew();
         
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length; i++)
+        for (var i = 0; i < data.Count(); i++)
         {
             newQueueFull.Poll();
-            
-            //wait for 1ms to simulate the time it takes to poll, since polling is too fast to measure
-            await Task.Delay(1);
         }
         
         watch.Stop();
@@ -165,19 +147,16 @@ public class PriorityQueue(ITestOutputHelper testOutputHelper)
         
         var newQueue100 = new DataStructures.Others.PriorityQueue<int>();
         
-        foreach (var item in data.lijst_willekeurig_10000)
+        foreach (var item in data)
         {
             newQueue100.Add(item);
         }
         
         watch.Restart();
         
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length / 100; i++)
+        for (var i = 0; i < data.Count() / 100; i++)
         {
             newQueue100.Poll();
-            
-            //wait for 1ms to simulate the time it takes to poll, since polling is too fast to measure
-            await Task.Delay(1);
         }
         
         watch.Stop();
@@ -186,27 +165,24 @@ public class PriorityQueue(ITestOutputHelper testOutputHelper)
         
         var newQueue10 = new DataStructures.Others.PriorityQueue<int>();
         
-        foreach (var item in data.lijst_willekeurig_10000)
+        foreach (var item in data)
         {
             newQueue10.Add(item);
         }
         
         watch.Restart();
         
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length / 10; i++)
+        for (var i = 0; i < data.Count() / 10; i++)
         {
             newQueue10.Poll();
-            
-            //wait for 1ms to simulate the time it takes to poll, since polling is too fast to measure
-            await Task.Delay(1);
         }
         
         watch.Stop();
         
         var elapsedMs10 = watch.ElapsedTicks;
         
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length / 100} items: {elapsedMs100} ticks");
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length / 10} items: {elapsedMs10} ticks");
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length} items: {elapsedMsFull} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count() / 100} items: {elapsedMs100} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count() / 10} items: {elapsedMs10} ticks");
+        testOutputHelper.WriteLine($"Elapsed time for {data.Count()} items: {elapsedMsFull} ticks");
     }
 }
