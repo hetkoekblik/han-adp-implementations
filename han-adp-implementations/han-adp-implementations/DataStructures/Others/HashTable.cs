@@ -6,9 +6,10 @@ public class HashTable<TKey, TValue> where TKey : IComparable<TKey>
     {
         public TKey Key { get; set; } = key;
         public TValue Value { get; set; } = value;
+        public bool Deleted { get; set; }
     }
     
-    private const int InitialCapacity = 11;
+    private const int InitialCapacity = 5;
     
     private Node?[] _array = new Node[InitialCapacity];
     
@@ -25,7 +26,7 @@ public class HashTable<TKey, TValue> where TKey : IComparable<TKey>
 
         var i = 0;
         
-        while (_array[index] != null)
+        while (_array[index] != null && !_array[index]!.Deleted)
         {
             index = (index + i * i) % _array.Length;
             i++;
@@ -42,13 +43,13 @@ public class HashTable<TKey, TValue> where TKey : IComparable<TKey>
         
         var i = 0;
         
-        while (_array[index] != null && !_array[index]!.Key.Equals(key))
+        while (_array[index] != null && (!_array[index]!.Key.Equals(key) || _array[index]!.Deleted))
         {
             index = (index + i * i) % _array.Length;
             i++;
         }
 
-        return _array[index] == null ? default : _array[index]!.Value;
+        return _array[index] == null || _array[index]!.Deleted ? default : _array[index]!.Value;
     }
 
     public void Delete(TKey key)
@@ -57,18 +58,16 @@ public class HashTable<TKey, TValue> where TKey : IComparable<TKey>
         
         var i = 0;
         
-        while (_array[index] != null && !_array[index]!.Key.Equals(key))
+        while (_array[index] != null && (!_array[index]!.Key.Equals(key) || _array[index]!.Deleted))
         {
             index = (index + i * i) % _array.Length;
             i++;
         }
         
-        if (_array[index] == null)
-        {
+        if(_array[index] == null || _array[index]!.Deleted)
             throw new KeyNotFoundException();
-        }
         
-        _array[index] = null;
+        _array[index]!.Deleted = true;
         
         _count--;
     }
@@ -79,25 +78,24 @@ public class HashTable<TKey, TValue> where TKey : IComparable<TKey>
         
         var i = 0;
         
-        while (_array[index] != null && !_array[index]!.Key.Equals(key))
+        while (_array[index] != null && (!_array[index]!.Key.Equals(key) || _array[index]!.Deleted))
         {
             index = (index + i * i) % _array.Length;
             i++;
         }
         
-        if (_array[index] == null)
-        {
+        if (_array[index] == null || _array[index]!.Deleted)
             throw new KeyNotFoundException();
-        }
         
         _array[index]!.Value = value;
     }
 
     private void Resize()
     {
-        var newArray = new Node?[NextPrime(_array.Length * 2)];
+        var oldArray = _array;
+        _array = new Node?[NextPrime(_array.Length * 2)];
         
-        foreach (var node in _array)
+        foreach (var node in oldArray)
         {
             if (node == null)
             {
@@ -108,16 +106,14 @@ public class HashTable<TKey, TValue> where TKey : IComparable<TKey>
 
             var i = 0;
             
-            while (newArray[index] != null)
+            while (_array[index] != null)
             {
-                index = (index + i * i) % newArray.Length;
+                index = (index + i * i) % _array.Length;
                 i++;
             }
             
-            newArray[index] = node;
+            _array[index] = node;
         }
-        
-        _array = newArray;
     }
 
     private int GetHash(TKey key)

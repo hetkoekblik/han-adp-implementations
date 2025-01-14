@@ -4,20 +4,20 @@ using Xunit.Abstractions;
 
 namespace han_adp_implementations.Tests.Complexity;
 
-public class DoublyLinkedList(ITestOutputHelper testOutputHelper)
+public class Stack(ITestOutputHelper testOutputHelper)
 {
     [Fact]
-    public async Task CheckAddComplexity()
+    public async Task CheckPushComplexity()
     {
         var data = await DataRetriever.RetrieveSortingData();
         
-        var newArrayFull = new DataStructures.Lists.DoublyLinkedList<int>();
+        var newStackFull = new DataStructures.Others.Stack<int>();
         
         var watch = Stopwatch.StartNew();
         
         foreach (var item in data.lijst_willekeurig_10000)
         {
-            newArrayFull.Add(item);
+            newStackFull.Push(item);
             
             //wait for 1ms to simulate the time it takes to add an item, since adding is too fast to measure
             await Task.Delay(1);
@@ -27,13 +27,13 @@ public class DoublyLinkedList(ITestOutputHelper testOutputHelper)
         
         var elapsedMsFull = watch.ElapsedTicks;
         
-        var newArray100 = new DataStructures.Lists.DoublyLinkedList<int>();
+        var newStack100 = new DataStructures.Others.Stack<int>();
         
         watch.Restart();
         
-        for(var i = 0; i < data.lijst_willekeurig_10000.Length / 100; i++)
+        for (var i = 0; i < data.lijst_willekeurig_10000.Length / 100; i++)
         {
-            newArray100.Add(data.lijst_willekeurig_10000[i]);
+            newStack100.Push(data.lijst_willekeurig_10000[i]);
             
             //wait for 1ms to simulate the time it takes to add an item, since adding is too fast to measure
             await Task.Delay(1);
@@ -43,13 +43,13 @@ public class DoublyLinkedList(ITestOutputHelper testOutputHelper)
         
         var elapsedMs100 = watch.ElapsedTicks;
         
-        var newArray10 = new DataStructures.Lists.DoublyLinkedList<int>();
+        var newStack10 = new DataStructures.Others.Stack<int>();
         
         watch.Restart();
         
-        for(var i = 0; i < data.lijst_willekeurig_10000.Length / 10; i++)
+        for (var i = 0; i < data.lijst_willekeurig_10000.Length / 10; i++)
         {
-            newArray10.Add(data.lijst_willekeurig_10000[i]);
+            newStack10.Push(data.lijst_willekeurig_10000[i]);
             
             //wait for 1ms to simulate the time it takes to add an item, since adding is too fast to measure
             await Task.Delay(1);
@@ -63,294 +63,221 @@ public class DoublyLinkedList(ITestOutputHelper testOutputHelper)
         testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length / 10} items: {elapsedMs10} ticks");
         testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length} items: {elapsedMsFull} ticks");
     }
-    
+
     [Fact]
-    public async Task CheckRemoveByIndexComplexity()
+    public async Task CheckPopComplexity()
     {
         var data = await DataRetriever.RetrieveSortingData();
         
-        var newArrayFull = new DataStructures.Lists.DoublyLinkedList<int>();
-
+        var newStackFull = new DataStructures.Others.Stack<int>();
+        
         foreach (var item in data.lijst_willekeurig_10000)
         {
-            newArrayFull.Add(item);
+            newStackFull.Push(item);
         }
-
+        
         var watch = Stopwatch.StartNew();
-
-        for (var i = data.lijst_willekeurig_10000.Length - 1; i >= 0; i--)
+        
+        for (var i = 0; i < data.lijst_willekeurig_10000.Length; i++)
         {
-            newArrayFull.Remove(i);
-
+            var tempItem = newStackFull.Pop();
+            
             //wait for 1ms to simulate the time it takes to remove an item, since removing is too fast to measure
             await Task.Delay(1);
         }
-
+        
         watch.Stop();
-
+        
         var elapsedMsFull = watch.ElapsedTicks;
-
-        var newArray100 = new DataStructures.Lists.DoublyLinkedList<int>();
-
+        
+        var newStack100 = new DataStructures.Others.Stack<int>();
+        
         foreach (var item in data.lijst_willekeurig_10000)
         {
-            newArray100.Add(item);
+            newStack100.Push(item);
         }
-
+        
         watch.Restart();
-
-        for (var i = (data.lijst_willekeurig_10000.Length - 1) / 100; i >= 0; i--)
+        
+        for (var i = 0; i < data.lijst_willekeurig_10000.Length / 100; i++)
         {
-            newArray100.Remove(i);
-
+            var tempItem = newStack100.Pop();
+            
             //wait for 1ms to simulate the time it takes to remove an item, since removing is too fast to measure
             await Task.Delay(1);
         }
-
+        
         watch.Stop();
-
+        
         var elapsedMs100 = watch.ElapsedTicks;
-
-        var newArray10 = new DataStructures.Lists.DoublyLinkedList<int>();
-
+        
+        var newStack10 = new DataStructures.Others.Stack<int>();
+        
         foreach (var item in data.lijst_willekeurig_10000)
         {
-            newArray10.Add(item);
+            newStack10.Push(item);
         }
-
+        
         watch.Restart();
-
-        for (var i = (data.lijst_willekeurig_10000.Length - 1) / 10; i >= 0; i--)
+        
+        for (var i = 0; i < data.lijst_willekeurig_10000.Length / 10; i++)
         {
-            newArray10.Remove(i);
-
+            var tempItem = newStack10.Pop();
+            
             //wait for 1ms to simulate the time it takes to remove an item, since removing is too fast to measure
             await Task.Delay(1);
         }
-
+        
         watch.Stop();
-
+        
         var elapsedMs10 = watch.ElapsedTicks;
-
+        
         testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length / 100} items: {elapsedMs100} ticks");
         testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length / 10} items: {elapsedMs10} ticks");
         testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length} items: {elapsedMsFull} ticks");
     }
-    
+
     [Fact]
-    public async Task CheckRemoveByItemComplexity()
+    public async Task CheckTopComplexity()
     {
         var data = await DataRetriever.RetrieveSortingData();
-
-        var newArrayFull = new DataStructures.Lists.DoublyLinkedList<int>();
-
+        
+        var newStackFull = new DataStructures.Others.Stack<int>();
+        
         foreach (var item in data.lijst_willekeurig_10000)
         {
-            newArrayFull.Add(item);
+            newStackFull.Push(item);
         }
-
+        
         var watch = Stopwatch.StartNew();
-
+        
         for (var i = 0; i < data.lijst_willekeurig_10000.Length; i++)
         {
-            newArrayFull.RemoveItem(newArrayFull[0]);
-
-            //wait for 1ms to simulate the time it takes to remove an item, since removing is too fast to measure
+            var tempItem = newStackFull.Top();
+            
+            //wait for 1ms to simulate the time it takes to get the top item, since getting the top item is too fast to measure
             await Task.Delay(1);
         }
-
+        
         watch.Stop();
-
+        
         var elapsedMsFull = watch.ElapsedTicks;
-
-        var newArray100 = new DataStructures.Lists.DoublyLinkedList<int>();
-
+        
+        var newStack100 = new DataStructures.Others.Stack<int>();
+        
         foreach (var item in data.lijst_willekeurig_10000)
         {
-            newArray100.Add(item);
+            newStack100.Push(item);
         }
-
+        
         watch.Restart();
-
+        
         for (var i = 0; i < data.lijst_willekeurig_10000.Length / 100; i++)
         {
-            newArray100.RemoveItem(newArray100[0]);
-
-            //wait for 1ms to simulate the time it takes to remove an item, since removing is too fast to measure
+            var tempItem = newStack100.Top();
+            
+            //wait for 1ms to simulate the time it takes to get the top item, since getting the top item is too fast to measure
             await Task.Delay(1);
         }
-
+        
         watch.Stop();
-
+        
         var elapsedMs100 = watch.ElapsedTicks;
-
-        var newArray10 = new DataStructures.Lists.DoublyLinkedList<int>();
-
+        
+        var newStack10 = new DataStructures.Others.Stack<int>();
+        
         foreach (var item in data.lijst_willekeurig_10000)
         {
-            newArray10.Add(item);
+            newStack10.Push(item);
         }
-
+        
         watch.Restart();
-
+        
         for (var i = 0; i < data.lijst_willekeurig_10000.Length / 10; i++)
         {
-            newArray10.RemoveItem(newArray10[0]);
-
-            //wait for 1ms to simulate the time it takes to remove an item, since removing is too fast to measure
+            var tempItem = newStack10.Top();
+            
+            //wait for 1ms to simulate the time it takes to get the top item, since getting the top item is too fast to measure
             await Task.Delay(1);
         }
-
+        
         watch.Stop();
-
+        
         var elapsedMs10 = watch.ElapsedTicks;
-
+        
         testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length / 100} items: {elapsedMs100} ticks");
         testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length / 10} items: {elapsedMs10} ticks");
         testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length} items: {elapsedMsFull} ticks");
     }
-    
+
     [Fact]
-    public async Task CheckContainsComplexity()
+    public async Task CheckPeekComplexity()
     {
         var data = await DataRetriever.RetrieveSortingData();
-
-        var newArrayFull = new DataStructures.Lists.DoublyLinkedList<int>();
-
+        
+        var newStackFull = new DataStructures.Others.Stack<int>();
+        
         foreach (var item in data.lijst_willekeurig_10000)
         {
-            newArrayFull.Add(item);
+            newStackFull.Push(item);
         }
-
+        
         var watch = Stopwatch.StartNew();
-
+        
         for (var i = 0; i < data.lijst_willekeurig_10000.Length; i++)
         {
-            newArrayFull.Contains(newArrayFull[0]);
-
-            //wait for 1ms to simulate the time it takes to check if an item is in the list, since checking is too fast to measure
+            var tempItem = newStackFull.Peek();
+            
+            //wait for 1ms to simulate the time it takes to get the top item, since getting the top item is too fast to measure
             await Task.Delay(1);
         }
-
+        
         watch.Stop();
-
+        
         var elapsedMsFull = watch.ElapsedTicks;
-
-        var newArray100 = new DataStructures.Lists.DoublyLinkedList<int>();
-
+        
+        var newStack100 = new DataStructures.Others.Stack<int>();
+        
         foreach (var item in data.lijst_willekeurig_10000)
         {
-            newArray100.Add(item);
+            newStack100.Push(item);
         }
-
+        
         watch.Restart();
-
+        
         for (var i = 0; i < data.lijst_willekeurig_10000.Length / 100; i++)
         {
-            newArray100.Contains(newArray100[0]);
-
-            //wait for 1ms to simulate the time it takes to check if an item is in the list, since checking is too fast to measure
+            var tempItem = newStack100.Peek();
+            
+            //wait for 1ms to simulate the time it takes to get the top item, since getting the top item is too fast to measure
             await Task.Delay(1);
         }
-
+        
         watch.Stop();
-
+        
         var elapsedMs100 = watch.ElapsedTicks;
-
-        var newArray10 = new DataStructures.Lists.DoublyLinkedList<int>();
-
+        
+        var newStack10 = new DataStructures.Others.Stack<int>();
+        
         foreach (var item in data.lijst_willekeurig_10000)
         {
-            newArray10.Add(item);
+            newStack10.Push(item);
         }
-
+        
         watch.Restart();
-
+        
         for (var i = 0; i < data.lijst_willekeurig_10000.Length / 10; i++)
         {
-            newArray10.Contains(newArray10[0]);
-
-            //wait for 1ms to simulate the time it takes to check if an item is in the list, since checking is too fast to measure
+            var tempItem = newStack10.Peek();
+            
+            //wait for 1ms to simulate the time it takes to get the top item, since getting the top item is too fast to measure
             await Task.Delay(1);
         }
-
+        
         watch.Stop();
-
+        
         var elapsedMs10 = watch.ElapsedTicks;
-
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length / 100} items: {elapsedMs100} ticks");
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length / 10} items: {elapsedMs10} ticks");
-        testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length} items: {elapsedMsFull} ticks");
-    }
-    
-    [Fact]
-    public async Task CheckIndexOfComplexity()
-    {
-        var data = await DataRetriever.RetrieveSortingData();
-
-        var newArrayFull = new DataStructures.Lists.DoublyLinkedList<int>();
-
-        foreach (var item in data.lijst_willekeurig_10000)
-        {
-            newArrayFull.Add(item);
-        }
-
-        var watch = Stopwatch.StartNew();
-
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length; i++)
-        {
-            newArrayFull.IndexOf(newArrayFull[0]);
-
-            //wait for 1ms to simulate the time it takes to get the index of an item, since getting the index is too fast to measure
-            await Task.Delay(1);
-        }
-
-        watch.Stop();
-
-        var elapsedMsFull = watch.ElapsedTicks;
-
-        var newArray100 = new DataStructures.Lists.DoublyLinkedList<int>();
-
-        foreach (var item in data.lijst_willekeurig_10000)
-        {
-            newArray100.Add(item);
-        }
-
-        watch.Restart();
-
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length / 100; i++)
-        {
-            newArray100.IndexOf(newArray100[0]);
-
-            //wait for 1ms to simulate the time it takes to get the index of an item, since getting the index is too fast to measure
-            await Task.Delay(1);
-        }
-
-        watch.Stop();
-
-        var elapsedMs100 = watch.ElapsedTicks;
-
-        var newArray10 = new DataStructures.Lists.DoublyLinkedList<int>();
-
-        foreach (var item in data.lijst_willekeurig_10000)
-        {
-            newArray10.Add(item);
-        }
-
-        watch.Restart();
-
-        for (var i = 0; i < data.lijst_willekeurig_10000.Length / 10; i++)
-        {
-            newArray10.IndexOf(newArray10[0]);
-
-            //wait for 1ms to simulate the time it takes to get the index of an item, since getting the index is too fast to measure
-            await Task.Delay(1);
-        }
-
-        watch.Stop();
-
-        var elapsedMs10 = watch.ElapsedTicks;
-
+        
         testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length / 100} items: {elapsedMs100} ticks");
         testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length / 10} items: {elapsedMs10} ticks");
         testOutputHelper.WriteLine($"Elapsed time for {data.lijst_willekeurig_10000.Length} items: {elapsedMsFull} ticks");
